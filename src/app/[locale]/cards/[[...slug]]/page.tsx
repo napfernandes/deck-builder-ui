@@ -29,7 +29,7 @@ export default function CardDetailsPage() {
 
   const imageClassNames =
     card.attributes.orientation.toLowerCase() === "horizontal"
-      ? "rotate-90"
+      ? "hover:rotate-90"
       : "";
   return (
     <div className="flex flex-col">
@@ -48,16 +48,12 @@ export default function CardDetailsPage() {
         <div className="flex flex-col">
           <div className="section">
             <h1>Basic Information</h1>
-
             <ul>
               <CardDetailAttribute
                 label="Card #"
                 value={card.attributes.cardNumber}
               />
-              <CardDetailAttribute
-                label="Illustrator"
-                value={card.attributes.illustrator}
-              />
+              <CardDetailAttribute label="Type" value={card.attributes.type} />
               <CardDetailAttribute
                 label="Set"
                 altIcon={card.attributes.set}
@@ -68,10 +64,16 @@ export default function CardDetailsPage() {
                 value={card.attributes.rarity}
               />
               <CardDetailAttribute
-                label="Lesson type"
-                altIcon={card.attributes.lessonType}
-                icon={`/assets/images/lessons/${card.attributes.lessonTypeCode}.png`}
+                label="Illustrator"
+                value={card.attributes.illustrator}
               />
+              {card.attributes.lessonType && (
+                <CardDetailAttribute
+                  label="Lesson type"
+                  altIcon={card.attributes.lessonType}
+                  icon={`/assets/images/lessons/${card.attributes.lessonTypeCode}.png`}
+                />
+              )}
               <CardDetailAttribute
                 label="Lesson cost"
                 value={card.attributes.lessonCost}
@@ -90,12 +92,37 @@ export default function CardDetailsPage() {
           <div className="section mt-10">
             <h1>Rules and flavor text</h1>
             <ul>
-              <CardDetailAttribute label="Text" value={card.attributes.text} />
-              <CardDetailAttribute
-                isItalic={true}
-                label="Flavor text"
-                value={card.attributes.flavorText}
-              />
+              {card.attributes.text && (
+                <CardDetailAttribute
+                  label="Text"
+                  value={card.attributes.text}
+                />
+              )}
+              {card.attributes.flavorText && (
+                <CardDetailAttribute
+                  isItalic={true}
+                  label="Flavor text"
+                  value={card.attributes.flavorText}
+                />
+              )}
+              {card.attributes.effect && (
+                <CardDetailAttribute
+                  label="Effect"
+                  value={card.attributes.effect}
+                />
+              )}
+              {card.attributes.toSolve && (
+                <CardDetailAttribute
+                  label="To solve"
+                  value={card.attributes.toSolve}
+                />
+              )}
+              {card.attributes.note && (
+                <CardDetailAttribute
+                  label="Note"
+                  value={card.attributes.note}
+                />
+              )}
             </ul>
           </div>
         </div>

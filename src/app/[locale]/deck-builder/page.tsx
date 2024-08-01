@@ -1,9 +1,12 @@
 "use client";
 
 import { Input, InputNumber } from "antd";
+import { useRouter } from "next/navigation";
 import { ChangeEvent, useEffect, useState } from "react";
 
 import { CardOutput } from "@/apis/cards/interface";
+import { useMutation } from "@tanstack/react-query";
+import { createDeck } from "@/apis/decks/endpoints";
 import { CreateDeckInput } from "@/apis/decks/interface";
 import { SearchCardsComponent } from "@/components/search-cards";
 
@@ -17,6 +20,12 @@ export default function DeckBuilderPage(props: DeckBuilderPageProps) {
   const [selectedCard, setSelectedCard] = useState<CardOutput>(
     CardOutput.empty()
   );
+  const createDeckMutation = useMutation({
+    mutationFn: (input: CreateDeckInput) => createDeck(input),
+    mutationKey: ["createDeck"],
+  });
+
+  const router = useRouter();
 
   useEffect(() => {
     if (selectedCard.id) {
@@ -41,7 +50,7 @@ export default function DeckBuilderPage(props: DeckBuilderPageProps) {
     setDeck({ ...deck, cards: newCards });
   };
 
-  const onSubmitDeck = (event: React.FormEvent<HTMLFormElement>) => {
+  const onSubmitDeck = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     const submittedDeck = {
@@ -52,7 +61,9 @@ export default function DeckBuilderPage(props: DeckBuilderPageProps) {
         notes: card.notes,
       })),
     };
-    console.log(submittedDeck);
+
+    const result = await createDeckMutation.mutateAsync(submittedDeck);
+    router.push(`/decks/${result.id}`);
   };
 
   const onChangeQuantity = (quantity: number | null, index: number) => {
@@ -128,7 +139,7 @@ export default function DeckBuilderPage(props: DeckBuilderPageProps) {
             </thead>
             <tbody>
               {deck.cards.map((card, index) => (
-                <tr key={card.details.id}>
+                <tr key={card.details?.id}>
                   <td>{card.details?.attributes?.cardNumber}</td>
                   <td>
                     <a

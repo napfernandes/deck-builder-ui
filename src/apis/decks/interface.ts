@@ -12,10 +12,11 @@ export class CreateDeckInput {
   }
 }
 
-export interface DeckCardInput {
-  cardId: string;
-  quantity: number;
-  notes?: string;
+export class DeckCardInput {
+  cardId: string = "";
+  quantity: number = 0;
+  notes?: string = "";
+  details?: Record<string, any> = {};
 }
 
 export interface DeckOutput {
@@ -31,5 +32,5 @@ export interface DeckCardOutput {
   cardId: string;
   quantity: number;
   notes?: string;
-  details: Record<string, object>;
+  details: Record<string, unknown>;
 }
