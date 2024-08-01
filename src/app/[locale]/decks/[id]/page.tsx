@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useParams } from "next/navigation";
 import { useQuery } from "@tanstack/react-query";
 
@@ -64,13 +65,12 @@ export default function DeckListPage(props: DeckListPageProps) {
                     return (
                       <p>
                         {card.quantity}x{" "}
-                        <a
+                        <Link
                           className="text-blue-600 dark:text-blue-500 hover:underline"
-                          href={`${process.env.NEXT_PUBLIC_API_URL}/assets/images/${card.details.code}.png`}
-                          target="_blank"
+                          href={`/cards/${card.details.setCode}/${card.details.code}`}
                         >
                           {card.details.name}
-                        </a>
+                        </Link>
                       </p>
                     );
                   })}

@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { Input, InputNumber } from "antd";
 import { useRouter } from "next/navigation";
 import { ChangeEvent, useEffect, useState } from "react";
@@ -142,13 +143,13 @@ export default function DeckBuilderPage(props: DeckBuilderPageProps) {
                 <tr key={card.details?.id}>
                   <td>{card.details?.attributes?.cardNumber}</td>
                   <td>
-                    <a
+                    <Link
                       className="text-blue-600 dark:text-blue-500 hover:underline"
                       href={`${process.env.NEXT_PUBLIC_API_URL}/assets/images/${card.details?.attributes.code}.png`}
                       target="_blank"
                     >
                       {card.details?.attributes?.name}
-                    </a>
+                    </Link>
                   </td>
                   <td>
                     <InputNumber
