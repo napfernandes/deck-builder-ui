@@ -20,8 +20,8 @@ export default function HomePage() {
   };
 
   return (
-    <div className="flex flex-col flex-1 items-center p-24 relative">
-      {/* <div className="bg-no-repeat bg-cover bg-[url(/assets/images/background.webp)] opacity-60 absolute inset-0 -z-10" /> */}
+    <div className="flex flex-col h-full flex-1 items-center p-24 relative">
+      <div className="bg-no-repeat bg-cover bg-[url(/assets/images/background.webp)] opacity-60 absolute inset-0 -z-10" />
 
       <h1>{t.home.mainTitle}</h1>
 
