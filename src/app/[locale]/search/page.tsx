@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { useSearchParams } from "next/navigation";
 
@@ -29,7 +29,7 @@ export default function SearchPage() {
   return (
     <div className="flex min-h-screen flex-col items-center p-24 bg-cover bg-center">
       <p>{t.search.searchResults(data.length)}</p>
-      <div className="flex flex-wrap gap-4">
+      <div className="mt-4 flex flex-wrap gap-4 content-center">
         {data.map((card: CardOutput) => (
           <SearchCard key={card.id} card={card} />
         ))}
