@@ -34,7 +34,7 @@ export default function CardDetailsPage() {
         <img
           className={imageClassNames}
           alt={data.attributes.code}
-          src={`http://localhost:5299/assets/images/${data.attributes.code}.png`}
+          src={`${process.env.NEXT_PUBLIC_API_URL}/assets/images/${data.attributes.code}.png`}
         />
       </div>
     </>

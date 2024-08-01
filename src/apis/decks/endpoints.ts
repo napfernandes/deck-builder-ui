@@ -1,13 +1,16 @@
 import { RequestOptions } from "../interface";
 
 export async function getDeckById(id: string, options?: RequestOptions) {
-  const result = await fetch(`http://localhost:5299/api/v1/decks/${id}`, {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    signal: options?.signal,
-  });
+  const result = await fetch(
+    `${process.env.NEXT_PUBLIC_API_URL}/api/v1/decks/${id}`,
+    {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      signal: options?.signal,
+    }
+  );
 
   const response = await result.json();
 
@@ -19,13 +22,16 @@ export async function getDeckById(id: string, options?: RequestOptions) {
 }
 
 export async function getDecks(options?: RequestOptions) {
-  const result = await fetch(`http://localhost:5299/api/v1/decks`, {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    signal: options?.signal,
-  });
+  const result = await fetch(
+    `${process.env.NEXT_PUBLIC_API_URL}/api/v1/decks`,
+    {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      signal: options?.signal,
+    }
+  );
 
   const response = await result.json();
 

@@ -6,7 +6,7 @@ export async function getCardsBySetAndCode(
   options?: RequestOptions
 ) {
   const result = await fetch(
-    `http://localhost:5299/api/v1/sets/${setCode}/cards/${code}`,
+    `${process.env.NEXT_PUBLIC_API_URL}/api/v1/sets/${setCode}/cards/${code}`,
     {
       method: "GET",
       headers: {
@@ -27,7 +27,8 @@ export async function getCardsBySetAndCode(
 
 export async function searchCards(query: string, options?: RequestOptions) {
   const result = await fetch(
-    "http://localhost:5299/api/v1/cards?" + new URLSearchParams({ query }),
+    `${process.env.NEXT_PUBLIC_API_URL}/api/v1/cards?` +
+      new URLSearchParams({ query }),
     {
       method: "GET",
       headers: {

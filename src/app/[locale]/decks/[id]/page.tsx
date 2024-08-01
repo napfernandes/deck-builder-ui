@@ -55,7 +55,7 @@ export default function DeckListPage(props: DeckListPageProps) {
                   <td>
                     <a
                       className="text-blue-600 dark:text-blue-500 hover:underline"
-                      href={`http://localhost:5299/assets/images/${card.details.code}.png`}
+                      href={`${process.env.NEXT_PUBLIC_API_URL}/assets/images/${card.details.code}.png`}
                       target="_blank"
                     >
                       {card.details.name.toString()}

@@ -133,7 +133,7 @@ export default function DeckBuilderPage(props: DeckBuilderPageProps) {
                   <td>
                     <a
                       className="text-blue-600 dark:text-blue-500 hover:underline"
-                      href={`http://localhost:5299/assets/images/${card.details?.attributes.code}.png`}
+                      href={`${process.env.NEXT_PUBLIC_API_URL}/assets/images/${card.details?.attributes.code}.png`}
                       target="_blank"
                     >
                       {card.details?.attributes?.name}

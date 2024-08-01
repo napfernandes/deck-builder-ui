@@ -3,8 +3,8 @@ import type { AutoCompleteProps } from "antd";
 import React, { Dispatch, SetStateAction, useEffect, useState } from "react";
 
 import { useQuery } from "@tanstack/react-query";
-import { searchCards } from "@/apis/search-cards";
 import { CardOutput } from "@/apis/cards/interface";
+import { searchCards } from "@/apis/cards/endpoints";
 
 export type SearchCardsComponentProps = AutoCompleteProps & {
   setSelectedValue?: Dispatch<SetStateAction<CardOutput>>;
