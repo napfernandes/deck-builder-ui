@@ -13,7 +13,12 @@ interface DeckListPageProps {
 export default function DeckListPage(props: DeckListPageProps) {
   const params = useParams();
 
-  const { data, isLoading, error, status } = useQuery({
+  const {
+    data: deck,
+    isLoading,
+    error,
+    status,
+  } = useQuery({
     queryFn: async ({ signal }) =>
       await getDeckById(params.id.toString(), { signal }),
     queryKey: ["getDeckById"],
@@ -28,45 +33,51 @@ export default function DeckListPage(props: DeckListPageProps) {
     return <h1>Error! {JSON.stringify(error)}</h1>;
   }
 
+  const cardTypes = Array.from(
+    new Set(deck.cards.map((card: DeckCardOutput) => card.details.type))
+  ) as string[];
+
   return (
     <>
       <h1>Deck list</h1>
 
-      <ul>
+      <ul className="mt-8">
         <li>
-          <b>Title:</b> {data.title}
+          <b>Title:</b> {deck.title}
         </li>
         <li>
-          <b>Description:</b> {data.description}
+          <b>Description:</b> {deck.description}
         </li>
-        <li>
+        <li className="mt-8">
           <b>Cards:</b>
-          <table className="">
-            <thead>
-              <tr>
-                <th>Card name</th>
-                <th>Quantity</th>
-                <th>Notes</th>
-              </tr>
-            </thead>
-            <tbody>
-              {data.cards.map((card: DeckCardOutput) => (
-                <tr key={card.cardId}>
-                  <td>
-                    <a
-                      className="text-blue-600 dark:text-blue-500 hover:underline"
-                      href={`${process.env.NEXT_PUBLIC_API_URL}/assets/images/${card.details.code}.png`}
-                      target="_blank"
-                    >
-                      {card.details.name.toString()}
-                    </a>
-                  </td>
-                  <td>{card.quantity}</td>
-                  <td>{card.notes}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+
+          {cardTypes.map((cardType: string) => {
+            const filteredCards = deck.cards.filter((card: DeckCardOutput) => {
+              return card.details.type === cardType;
+            });
+
+            return (
+              <div className="mt-6">
+                <b>{cardType}</b>
+                <div className="mt-4">
+                  {filteredCards.map((card: DeckCardOutput) => {
+                    return (
+                      <p>
+                        {card.quantity}x{" "}
+                        <a
+                          className="text-blue-600 dark:text-blue-500 hover:underline"
+                          href={`${process.env.NEXT_PUBLIC_API_URL}/assets/images/${card.details.code}.png`}
+                          target="_blank"
+                        >
+                          {card.details.name}
+                        </a>
+                      </p>
+                    );
+                  })}
+                </div>
+              </div>
+            );
+          })}
         </li>
       </ul>
     </>

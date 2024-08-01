@@ -32,5 +32,5 @@ export interface DeckCardOutput {
   cardId: string;
   quantity: number;
   notes?: string;
-  details: Record<string, unknown>;
+  details: Record<string, any>;
 }
