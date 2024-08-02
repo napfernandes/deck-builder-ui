@@ -20,18 +20,27 @@ export default function HomePage() {
   };
 
   return (
-    <div className="flex flex-col h-full flex-1 items-center p-24 relative">
-      <div className="bg-no-repeat bg-cover bg-[url(/assets/images/background.webp)] opacity-60 absolute inset-0 -z-10" />
+    <div className="flex flex-col h-full flex-1 relative">
+      <div className="bg-no-repeat bg-cover bg-[url(/assets/images/backgrounds/library.jpg)] opacity-60 absolute inset-0 -z-10" />
 
-      <h1>{t.home.mainTitle}</h1>
+      <div className="grid grid-cols-3 justify-center">
+        <div className="col"></div>
+        <div className="col text-center">
+          <form
+            className="mt-40 space-y-5 text-center"
+            onSubmit={onSearchCards}
+          >
+            <b>{t.home.searchCardsTitle}</b>
+            <Input className="mt-5" type="text" onChange={onChangeSearch} />
+            <Button type="default" htmlType="submit" className="primary w-full">
+              {t.home.searchCardsButton}
+            </Button>
+          </form>
+        </div>
+        <div className="col"></div>
+      </div>
 
-      <form className="mt-12 space-y-2" onSubmit={onSearchCards}>
-        <h4>{t.home.searchCardsTitle}:</h4>
-        <Input type="text" onChange={onChangeSearch} />
-        <Button type="default" htmlType="submit" className="primary w-full">
-          {t.home.searchCardsButton}
-        </Button>
-      </form>
+      {/*  */}
     </div>
   );
 }

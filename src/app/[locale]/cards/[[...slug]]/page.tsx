@@ -29,31 +29,38 @@ export default function CardDetailsPage() {
 
   const imageClassNames =
     card.attributes.orientation.toLowerCase() === "horizontal"
-      ? "hover:rotate-90"
+      ? "rotate-90"
       : "";
-  return (
-    <div className="flex flex-col">
-      <div className=" items-center">
-        <h1>{card.attributes.name}</h1>
-      </div>
 
-      <div className="mt-4 flex flex-row">
-        <div>
+  return (
+    <div className="grid grid-cols-3 text-sm">
+      <div className="col"></div>
+      <div className="col">
+        <div className="mb-10 mt-10">
           <img
-            className={`w-50 ${imageClassNames}`}
+            className={`${imageClassNames}`}
             alt={card.attributes.code}
             src={`${process.env.NEXT_PUBLIC_API_URL}/assets/images/${card.attributes.code}.png`}
           />
         </div>
-        <div className="flex flex-col">
-          <div className="section">
-            <h1>Basic Information</h1>
-            <ul>
+        <div>
+          <div className="grid grid-rows">
+            <div className="font-bold font-harryPotter text-5xl">
+              {card.attributes.name}
+            </div>
+
+            <div className="grid-cols-2 mb-10">
+              <span className="font-bold font-harryPotter text-3xl">
+                {card.attributes.type}
+              </span>
+              <i className="ml-2 text-sm">
+                {card.attributes.subType && card.attributes.subType.join(",")}
+              </i>
+
               <CardDetailAttribute
-                label="Card #"
+                label={"Card #"}
                 value={card.attributes.cardNumber}
               />
-              <CardDetailAttribute label="Type" value={card.attributes.type} />
               <CardDetailAttribute
                 label="Set"
                 altIcon={card.attributes.set}
@@ -65,6 +72,7 @@ export default function CardDetailsPage() {
               />
               <CardDetailAttribute
                 label="Illustrator"
+                isItalic={true}
                 value={card.attributes.illustrator}
               />
               {card.attributes.lessonType && (
@@ -74,24 +82,18 @@ export default function CardDetailsPage() {
                   icon={`/assets/images/lessons/${card.attributes.lessonTypeCode}.png`}
                 />
               )}
-              <CardDetailAttribute
-                label="Lesson cost"
-                value={card.attributes.lessonCost}
-              />
+
+              {card.attributes.lessonCost && (
+                <CardDetailAttribute
+                  label="Lesson cost"
+                  value={card.attributes.lessonCost}
+                />
+              )}
+
               <CardDetailAttribute
                 label="Action cost"
                 value={card.attributes.actionCost}
               />
-              <CardDetailAttribute
-                label="Sub type(s)"
-                value={card.attributes.subType}
-              />
-            </ul>
-          </div>
-
-          <div className="section mt-10">
-            <h1>Rules and flavor text</h1>
-            <ul>
               {card.attributes.text && (
                 <CardDetailAttribute
                   label="Text"
@@ -123,7 +125,7 @@ export default function CardDetailsPage() {
                   value={card.attributes.note}
                 />
               )}
-            </ul>
+            </div>
           </div>
         </div>
       </div>
@@ -145,18 +147,20 @@ function CardDetailAttribute(props: CardDetailAttributeProps) {
   }
 
   return (
-    <li className="flex flex-row gap-10">
+    <div className="grid grid-cols-2 mb-2">
       <b>{props.label}</b>
-      <span className="flex flex-row gap-2">
-        {!props.value ? null : props.isItalic ? (
-          <i>{props.value}</i>
-        ) : (
-          props.value
-        )}{" "}
-        {props.icon ? (
-          <img src={props.icon} title={props.altIcon ?? props.value} />
-        ) : null}
-      </span>
-    </li>
+      {!props.value ? null : props.isItalic ? (
+        <i>{props.value}</i>
+      ) : (
+        props.value
+      )}{" "}
+      {props.icon ? (
+        <img
+          src={props.icon}
+          style={{ width: 24, height: 24 }}
+          title={props.altIcon ?? props.value}
+        />
+      ) : null}
+    </div>
   );
 }

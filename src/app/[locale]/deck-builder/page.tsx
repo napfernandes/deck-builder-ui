@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { Input, InputNumber } from "antd";
+import { Button, Input, InputNumber } from "antd";
 import { useRouter } from "next/navigation";
 import { ChangeEvent, useEffect, useState } from "react";
 
@@ -56,6 +56,7 @@ export default function DeckBuilderPage(props: DeckBuilderPageProps) {
 
     const submittedDeck = {
       ...deck,
+      createdBy: "66ab65239047c10a2c6c2ddc",
       cards: deck.cards.map((card) => ({
         cardId: card.cardId,
         quantity: card.quantity,
@@ -93,13 +94,17 @@ export default function DeckBuilderPage(props: DeckBuilderPageProps) {
   };
 
   return (
-    <div className="flex min-h-screen flex-col items-center p-24 bg-cover bg-center">
+    <form
+      onSubmit={onSubmitDeck}
+      className="flex text-sm min-h-screen flex-col items-center p-24 bg-cover bg-center"
+    >
       <h1>Deck Builder</h1>
 
-      <form className="flex flex-col" onSubmit={onSubmitDeck}>
+      <div className="flex flex-row gap-10 m-10">
         <div className="flex flex-col">
-          <h3>General information</h3>
-          <div>
+          <b>General information</b>
+
+          <div className="mt-8">
             <label htmlFor="title">Title</label>
             <Input
               type="text"
@@ -121,14 +126,16 @@ export default function DeckBuilderPage(props: DeckBuilderPageProps) {
         </div>
 
         <div className="flex flex-col">
-          <h3>Cards selection</h3>
+          <b className="mb-2">Cards selection</b>
 
           <SearchCardsComponent
             setSelectedValue={setSelectedCard}
             autoClearSearchValue={true}
             allowClear={true}
+            placeholder={"Search for a card"}
           />
-          <table>
+
+          <table className="mt-7">
             <thead>
               <tr>
                 <th>#</th>
@@ -177,10 +184,12 @@ export default function DeckBuilderPage(props: DeckBuilderPageProps) {
               ))}
             </tbody>
           </table>
-
-          <button type="submit">Submit</button>
         </div>
-      </form>
-    </div>
+      </div>
+
+      <Button type="default" htmlType="submit" className="primary w-full">
+        Submit
+      </Button>
+    </form>
   );
 }

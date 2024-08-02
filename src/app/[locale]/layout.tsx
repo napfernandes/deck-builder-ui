@@ -10,6 +10,8 @@ import "./globals.css";
 import { locales } from "@/navigation";
 // import { GameProvider } from '@/contexts/use-game';
 import { ReactQueryProvider } from "@/utils/providers/react-query.provider";
+import { useStaticTranslations } from "@/hooks/use-static-translations";
+import Link from "next/link";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -25,6 +27,8 @@ export default function RootLayout({
   children: ReactNode;
   params: { locale: string };
 }>) {
+  const t = useStaticTranslations();
+
   if (!locales.includes(locale)) {
     notFound();
   }
@@ -39,12 +43,17 @@ export default function RootLayout({
             <ReactQueryProvider>
               <body className={inter.className}>
                 <div className="flex flex-col h-screen">
-                  <header className="py-2 bg-gray-700 text-white text-center">
-                    Sticky Header and Footer with Tailwind
+                  <header className="py-2 bg-gray-800 text-white text-center">
+                    <Link href={"/"} className="font-harryPotter text-3xl">
+                      {t.home.mainTitle}
+                    </Link>
                   </header>
                   <div className="flex-1 overflow-y-auto">{children}</div>
-                  <footer className="py-2 bg-gray-700 text-center text-white">
-                    napfernandes@2024
+                  <footer className="py-2 bg-gray-800 text-center text-white">
+                    <ul className="text-sm">
+                      <li>napfernandes @2024</li>
+                      <li>Revival TCG Community @2024</li>
+                    </ul>
                   </footer>
                 </div>
               </body>

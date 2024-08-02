@@ -27,7 +27,8 @@ export default function SearchPage() {
   }
 
   return (
-    <div className="flex min-h-screen flex-col items-center p-24 bg-cover bg-center">
+    <div className="flex flex-col h-full flex-1 items-center p-24 relative">
+      <div className="bg-repeat bg-cover bg-[url(/assets/images/backgrounds/castle.webp)] opacity-60 absolute inset-0 -z-10" />
       <p>{t.search.searchResults(data.length)}</p>
       <div className="mt-4 flex flex-wrap gap-4 content-center">
         {data.map((card: CardOutput) => (

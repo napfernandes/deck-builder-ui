@@ -1,7 +1,7 @@
 {
   "home": {
     "mainTitle": "Harry Potter TCG",
-    "searchCardsTitle": "Find any card you want by typing at the search bar",
+    "searchCardsTitle": "What card are you looking for today?",
     "searchCardsButton": "Search"
   },
   "search": {

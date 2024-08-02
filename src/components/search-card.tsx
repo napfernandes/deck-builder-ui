@@ -9,7 +9,7 @@ interface SearchCardProps {
 export function SearchCard({ card }: SearchCardProps) {
   const rotateClass =
     card.attributes.orientation.toLowerCase() === "horizontal"
-      ? "hover:rotate-90"
+      ? "hover:rotate-90 transition delay-150"
       : "";
 
   return (

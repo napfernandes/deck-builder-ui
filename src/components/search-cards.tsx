@@ -9,6 +9,7 @@ import { searchCards } from "@/apis/cards/endpoints";
 export type SearchCardsComponentProps = AutoCompleteProps & {
   setSelectedValue?: Dispatch<SetStateAction<CardOutput>>;
 };
+
 export function SearchCardsComponent(props: SearchCardsComponentProps) {
   const [query, setQuery] = useState<string>("");
   const { setSelectedValue, ...propsList } = props;
@@ -59,7 +60,6 @@ export function SearchCardsComponent(props: SearchCardsComponentProps) {
       options={options}
       onSelect={onSelect}
       onSearch={setQuery}
-      placeholder="input here"
     />
   );
 }
